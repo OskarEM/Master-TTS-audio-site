@@ -22,18 +22,18 @@
   <nav>
     <h2>Table of Contents</h2>
     <ul>
-      <li><a href="#phase1">Without syllable break</a>
+      <li><a href="#nosyll">Without syllable break</a>
         <ul>
           <li><a href="#phase1-nosyll">1.1 Training Phase 1 </a></li>
-          <li><a href="#phase1-syll">1.2 Training Phase 2</a></li>
-          <li><a href="#phase1-xlstm">1.3 Inference</a></li>
+          <li><a href="#phase2-nosyll">1.2 Training Phase 2</a></li>
+          <li><a href="#inference-nosyll">1.3 Inference</a></li>
         </ul>
       </li>
-      <li><a href="#phase2">With syllable break</a>
+      <li><a href="#syll">With syllable break</a>
          <ul>
-          <li><a href="#phase1-nosyll">2.1 Training Phase 1 </a></li>
-          <li><a href="#phase1-syll">2.2 Training Phase 2</a></li>
-          <li><a href="#phase1-xlstm">2.3 Inference</a></li>
+          <li><a href="#phase1-syll">2.1 Training Phase 1 </a></li>
+          <li><a href="#phase2-syll">2.2 Training Phase 2</a></li>
+          <li><a href="#inferece-syll">2.3 Inference</a></li>
         </ul>
       </li>
        <li><a href="#phase2">With xLSTM and BERT encoder optimization</a>
@@ -53,7 +53,7 @@
     </ul>
   </nav>
 <!-- -------------------------------------------------------------------------------- -->
-  <section id="phase1">
+  <section id="nosyll">
     <h2>Without syllable break</h2>
 
     <h3 id="phase1-nosyll">1.1 Training Phase 1</h3>
@@ -68,7 +68,7 @@
       <source src="0syllable_reconstruct_Stage1_last_new.wav" type="audio/wav">
     </audio>
 
-    <h3 id="phase1-syll">1.2 Training Phase 2</h3>
+    <h3 id="phase2-nosyll">1.2 Training Phase 2</h3>
     <p>Figure 3. Model trained without syllable segmentation, stage 2, step 193 087, during epoch 29.</p>
     <audio controls>
       <source src="0syllable_reconstruct_Stage2.wav" type="audio/wav">
@@ -79,17 +79,17 @@
       <source src="0syllable_reconstruct_Stage2_gt.wav" type="audio/wav">
     </audio>
     
-    <h3 id="phase1-xlstm">1.3 Inference</h3>
-    <p>Figure 5. Model inferenced without syllable segmentation,</p>
+    <h3 id="inference-nosyll">1.3 Inference</h3>
+    <p>Figure 5. Model inferenced without syllable segmentation.</p>
     <audio controls>
       <source src="y_0_247280_14ce58ada70f17d16180.wav" type="audio/wav">
     </audio>
   </section>
 <!-- -------------------------------------------------------------------------------- -->
-  <section id="phase2">
+  <section id="syll">
     <h2>With syllable break</h2>
 
-    <h3 id="phase2-nosyll">2.1 Training Phase 1</h3>
+    <h3 id="phase1-syll">2.1 Training Phase 1</h3>
     <p>Figure 6. Model trained with syllable segmentation, stage 1, step 120 876, during epoch 12.</p>
     <audio controls>
       <source src="1syllable_reconstruct_Stage1_last.wav" type="audio/wav">
@@ -106,8 +106,8 @@
       <source src="1syllable_reconstruct_Stage2_last_gt.wav" type="audio/wav">
     </audio>
 
-    <h3 id="phase2-xlstm-bert">2.3 Inference</h3>
-    <p>Advanced model using both xLSTM and a fine-tuned BERT encoder.</p>
+    <h3 id="inference-syll">2.3 Inference</h3>
+    <p>Figure 9. Model inferenced without syllable segmentation.</p>
     <audio controls>
       <source src="y_0_247280_14ce58ada70f17d16180.wav" type="audio/wav">
     </audio>
