@@ -115,5 +115,186 @@
   </section>
   <!-- -------------------------------------------------------------------------------- -->
 
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Training Phases – TTS Thesis</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+    h1, h2, h3 { color: #2c3e50; }
+    nav ul { list-style-type: none; padding: 0; }
+    nav li { margin-bottom: 5px; }
+    nav ul ul { padding-left: 20px; }
+    section { margin-top: 50px; }
+    audio { margin-top: 10px; display: block; }
+
+    /* ─────────────── New Table Styles ─────────────── */
+    .table-wrapper { overflow-x: auto; margin-top: 1rem; }
+    .audio-comparison {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    .audio-comparison th,
+    .audio-comparison td {
+      padding: 0.75rem;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+      vertical-align: middle;
+    }
+    .audio-comparison thead th {
+      background-color: #f9f9f9;
+      color: #2c3e50;
+      font-weight: 600;
+    }
+    .visually-hidden {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0);
+      white-space: nowrap; border: 0;
+    }
+    @media (max-width: 600px) {
+      .audio-comparison thead { display: none; }
+      .audio-comparison, 
+      .audio-comparison tbody, 
+      .audio-comparison tr, 
+      .audio-comparison td {
+        display: block; width: 100%;
+      }
+      .audio-comparison tr { margin-bottom: 1.5rem; }
+      .audio-comparison td {
+        text-align: right; padding-left: 50%; position: relative;
+      }
+      .audio-comparison td::before {
+        content: attr(data-label);
+        position: absolute; left: 0; width: 45%;
+        padding-left: 0.75rem; font-weight: 600; text-align: left;
+      }
+    }
+    /* ───────────────────────────────────────────────── */
+  </style>
+</head>
+<body>
+
+  <h1>Training Phases – Norwegian Text-to-Speech with StyleTTS 2</h1>
+  <p>This site presents training results from a master's thesis titled <strong>"Norwegian-based Text-to-Speech, using StyleTTS 2"</strong>. Below is a summary of different configurations and training phases, each with audio samples for evaluation.</p>
+
+  <nav>
+    <!-- existing TOC -->
+  </nav>
+
+  <section id="nosyll">
+    <!-- existing content… -->
+  </section>
+
+  <section id="syll">
+    <!-- existing content… -->
+  </section>
+
+<section id="inf">
+  <h2>Inferences</h2>
+  <p>This section contains audio samples from our models trained on the NPSC dataset.</p>
+  <div class="table-wrapper">
+    <table class="audio-comparison">
+      <caption class="visually-hidden">
+        Each row shows one text prompt (first column) and the corresponding audio from each model.
+      </caption>
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+  // 1. Texts (rows)
+  const texts = [
+    "Stortinget ber også regjeringa om å utrede, hvordan datostemplinga på matvarer kan forbedres for å redusere matsvinn.",
+    "det vil alltid være forbundet med risiko å velge en strategi for veien ut av en konflikt.",
+    "<ee>. ungdomsledigheten er en <ee> utfordring <ee>. men så vet vi at vi trenger flere fagarbeidere i framtida, og da er det viktig at vi også har nok lærlingplasser.",
+    "vi har fremma forslag om å begrense bemanningsselskapenes handlingsrom i henhold til loven.",
+    "men så har vi sett at det har vært økende omfang innenfor noen bransjer og i noen områder av landet, og det er det vi har ønsket å <ee> adressere i den proposisjonen som vi har lagt fram."
+  ];
+
+  // 2. Models (columns)
+  const models = [
+    {
+      name: "ground-truth",
+      paths: [
+        "eval_exports/v1/gt/audio_47.wav",
+        "eval_exports/v1/gt/audio_650.wav",
+        "eval_exports/v1/gt/audio_2601.wav",
+        "eval_exports/v1/gt/audio_37005.wav",
+        "eval_exports/v1/gt/audio_37061.wav"
+      ]
+    },
+    {
+      name: "without syllable break",
+      paths: [
+        "eval_exports/v1/pred/audio_47.wav",
+        "eval_exports/v1/pred/audio_650.wav",
+        "eval_exports/v1/pred/audio_2601.wav",
+        "eval_exports/v1/pred/audio_37005.wav",
+        "eval_exports/v1/pred/audio_37061.wav"
+      ]
+    },
+    {
+      name: "with syllable break",
+      paths: [
+        "eval_exports/v2/pred/audio_47.wav",
+        "eval_exports/v2/pred/audio_650.wav",
+        "eval_exports/v2/pred/audio_2601.wav",
+        "eval_exports/v2/pred/audio_37005.wav",
+        "eval_exports/v2/pred/audio_37061.wav"
+      ]
+    },
+    {
+      name: "syllable break with xLSTM",
+      paths: [
+        "eval_exports/v3/pred/audio_47.wav",
+        "eval_exports/v3/pred/audio_650.wav",
+        "eval_exports/v3/pred/audio_2601.wav",
+        "eval_exports/v3/pred/audio_37005.wav",
+        "eval_exports/v3/pred/audio_37061.wav"
+      ]
+    },
+    {
+      name: "syllable break with xLSTM, PoS & UD",
+      paths: [
+        "eval_exports/v4/pred/audio_47.wav",
+        "eval_exports/v4/pred/audio_650.wav",
+        "eval_exports/v4/pred/audio_2601.wav",
+        "eval_exports/v4/pred/audio_37005.wav",
+        "eval_exports/v4/pred/audio_37061.wav"
+      ]
+    }
+  ];
+
+  // 3. Build <thead>: first cell "Text", then each model name
+  const thead = document.querySelector("#inf thead");
+  const headRow = document.createElement("tr");
+  headRow.innerHTML = `<th>Text</th>` +
+    models.map(m => `<th>${m.name}</th>`).join("");
+  thead.append(headRow);
+
+  // 4. Build <tbody>: one row per text
+  const tbody = document.querySelector("#inf tbody");
+  texts.forEach((txt, rowIdx) => {
+    const tr = document.createElement("tr");
+    // first cell: the full text
+    tr.innerHTML = `<th scope="row">${txt}</th>` +
+      // then one <td> per model, pulling the path at the same index
+      models.map(m => `
+        <td>
+          <audio controls src="${m.paths[rowIdx]}"></audio>
+        </td>
+      `).join("");
+    tbody.append(tr);
+  });
+</script>
+
+
+
 </body>
 </html>
