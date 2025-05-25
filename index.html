@@ -212,9 +212,9 @@
   const texts = [
     "Stortinget ber også regjeringa om å utrede, hvordan datostemplinga på matvarer kan forbedres for å redusere matsvinn.",
     "det vil alltid være forbundet med risiko å velge en strategi for veien ut av en konflikt.",
-    "<ee>. ungdomsledigheten er en <ee> utfordring <ee>. men så vet vi at vi trenger flere fagarbeidere i framtida, og da er det viktig at vi også har nok lærlingplasser.",
+    "ee. ungdomsledigheten er en ee utfordring ee. men så vet vi at vi trenger flere fagarbeidere i framtida, og da er det viktig at vi også har nok lærlingplasser.",
     "vi har fremma forslag om å begrense bemanningsselskapenes handlingsrom i henhold til loven.",
-    "men så har vi sett at det har vært økende omfang innenfor noen bransjer og i noen områder av landet, og det er det vi har ønsket å <ee> adressere i den proposisjonen som vi har lagt fram."
+    "men så har vi sett at det har vært økende omfang innenfor noen bransjer og i noen områder av landet, og det er det vi har ønsket å ee adressere i den proposisjonen som vi har lagt fram."
   ];
 
   // 2. Models (columns)
@@ -287,7 +287,7 @@
       // then one <td> per model, pulling the path at the same index
       models.map(m => `
         <td>
-          <audio controls src="${m.paths[rowIdx]}"></audio>
+          <audio controls src="${m.paths[rowIdx]}" type="audio/wav" ></audio>
         </td>
       `).join("");
     tbody.append(tr);
