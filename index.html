@@ -305,5 +305,96 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
+
+
+    <section id="ood">
+    
+    <h2>out of distribution inference</h2>
+    <p>This section contains audio samples from our models trained on the NPSC dataset.</p>
+    <div class="table-wrapper">
+      <table class="audio-comparison">
+        <caption class="visually-hidden">
+          Each row shows one text prompt (first column) and the corresponding audio from each model.
+        </caption>
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // 1️⃣ Compute baseDir from the URL path:
+  //    e.g. "/Master-TTS-audio-site/index.html"  →  "/Master-TTS-audio-site/"
+  const path = window.location.pathname;
+  const baseDir = path.endsWith("/")
+    ? path
+    : path.slice(0, path.lastIndexOf("/") + 1);
+
+  // 2️⃣ Your texts (rows)
+  const texts = [
+    "Oskar og Lars, har utviklet en ny energidrikk ved hjelp av kunstig intelligens. Drikken, kalt Data brus, er resultatet av avanserte algoritmer som analyserte tusenvis av smaksprofiler for å finne den optimale kombinasjonen av ingredienser.",
+  ];
+
+  // 3️⃣ Your models (columns) with paths relative to baseDir
+  const models = [
+    {
+      name: "ground-truth",
+      paths: [
+        "eval/ood/gt/29021.wav"
+      ]
+    },
+    {
+      name: "without syllable break",
+      paths: [
+        "eval/ood/1.wav"
+
+      ]
+    },
+    {
+      name: "with syllable break",
+      paths: [
+        "eval/ood/2.wav"
+
+      ]
+    },
+    {
+      name: "syllable break with xLSTM",
+      paths: [
+        "eval/ood/3.wav"
+
+      ]
+    },
+    {
+      name: "syllable break with PoS & UD",
+      paths: [
+        "eval/ood/4.wav"
+
+      ]
+    }
+  ];
+
+  // 4️⃣ Build the table header
+  const thead = document.querySelector("#ood thead");
+  const headerRow = document.createElement("tr");
+  headerRow.innerHTML = `<th>Text</th>` +
+    models.map(m => `<th>${m.name}</th>`).join("");
+  thead.append(headerRow);
+
+  // 5️⃣ Build each data row
+  const tbody = document.querySelector("#ood tbody");
+  texts.forEach((txt, i) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<th scope="row">${txt}</th>` +
+      models.map(m => `
+        <td>
+          <audio controls>
+            <source src="${baseDir}${m.paths[i]}" type="audio/wav">
+          </audio>
+        </td>
+      `).join("");
+    tbody.append(tr);
+  });
+});
+</script>
 </body>
 </html>
