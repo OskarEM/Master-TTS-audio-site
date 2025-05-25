@@ -211,92 +211,101 @@
     </div>
   </section>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const texts = [
-        "Stortinget ber også regjeringa om å utrede, hvordan datostemplinga på matvarer kan forbedres for å redusere matsvinn.",
-        "det vil alltid være forbundet med risiko å velge en strategi for veien ut av en konflikt.",
-        "<ee>. ungdomsledigheten er en <ee> utfordring <ee>. men så vet vi at vi trenger flere fagarbeidere i framtida, og da er det viktig at vi også har nok lærlingplasser.",
-        "vi har fremma forslag om å begrense bemanningsselskapenes handlingsrom i henhold til loven.",
-        "men så har vi sett at det har vært økende omfang innenfor noen bransjer og i noen områder av landet, og det er det vi har ønsket å <ee> adressere i den proposisjonen som vi har lagt fram."
-      ];
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // 1. Compute the “base directory” of this page (so it works whether you're at
+  //    /Master-TTS-audio-site/ or /Master-TTS-audio-site/index.html)
+  const fullPath = window.location.pathname;
+  const baseDir  = fullPath.endsWith("/")
+    ? fullPath
+    : fullPath.replace(/\/[^/]*$/, "/");
 
-      const models = [
-        {
-          name: "ground-truth",
-          paths: [
-            "eval/v1/gt/audio_47.wav",
-            "eval/v1/gt/audio_650.wav",
-            "eval/v1/gt/audio_2601.wav",
-            "eval/v1/gt/audio_37005.wav",
-            "eval/v1/gt/audio_37061.wav"
-          ]
-        },
-        {
-          name: "without syllable break",
-          paths: [
-            "eval/v1/pred/audio_47.wav",
-            "eval/v1/pred/audio_650.wav",
-            "eval/v1/pred/audio_2601.wav",
-            "eval/v1/pred/audio_37005.wav",
-            "eval/v1/pred/audio_37061.wav"
-          ]
-        },
-        {
-          name: "with syllable break",
-          paths: [
-            "eval/v2/pred/audio_47.wav",
-            "eval/v2/pred/audio_650.wav",
-            "eval/v2/pred/audio_2601.wav",
-            "eval/v2/pred/audio_37005.wav",
-            "eval/v2/pred/audio_37061.wav"
-          ]
-        },
-        {
-          name: "syllable break with xLSTM",
-          paths: [
-            "eval/v3/pred/audio_47.wav",
-            "eval/v3/pred/audio_650.wav",
-            "eval/v3/pred/audio_2601.wav",
-            "eval/v3/pred/audio_37005.wav",
-            "eval/v3/pred/audio_37061.wav"
-          ]
-        },
-        {
-          name: "syllable break with PoS & UD",
-          paths: [
-            "eval/v4/pred/audio_47.wav",
-            "eval/v4/pred/audio_650.wav",
-            "eval/v4/pred/audio_2601.wav",
-            "eval/v4/pred/audio_37005.wav",
-            "eval/v4/pred/audio_37061.wav"
-          ]
-        }
-      ];
+  // 2. Your row texts
+  const texts = [
+    "Stortinget ber også regjeringa om å utrede, hvordan datostemplinga på matvarer kan forbedres for å redusere matsvinn.",
+    "det vil alltid være forbundet med risiko å velge en strategi for veien ut av en konflikt.",
+    "<ee>. ungdomsledigheten er en <ee> utfordring <ee>. men så vet vi at vi trenger flere fagarbeidere i framtida, og da er det viktig at vi også har nok lærlingplasser.",
+    "vi har fremma forslag om å begrense bemanningsselskapenes handlingsrom i henhold til loven.",
+    "men så har vi sett at det har vært økende omfang innenfor noen bransjer og i noen områder av landet, og det er det vi har ønsket å <ee> adressere i den proposisjonen som vi har lagt fram."
+  ];
 
-      // build header
-      const thead = document.querySelector("#inf thead");
-      const headerRow = document.createElement("tr");
-      headerRow.innerHTML = `<th>Text</th>` +
-        models.map(m => `<th>${m.name}</th>`).join("");
-      thead.append(headerRow);
+  // 3. Your model definitions (paths *relative* to the project root)
+  const models = [
+    {
+      name: "ground-truth",
+      paths: [
+        "eval/v1/gt/audio_47.wav",
+        "eval/v1/gt/audio_650.wav",
+        "eval/v1/gt/audio_2601.wav",
+        "eval/v1/gt/audio_37005.wav",
+        "eval/v1/gt/audio_37061.wav"
+      ]
+    },
+    {
+      name: "without syllable break",
+      paths: [
+        "eval/v1/pred/audio_47.wav",
+        "eval/v1/pred/audio_650.wav",
+        "eval/v1/pred/audio_2601.wav",
+        "eval/v1/pred/audio_37005.wav",
+        "eval/v1/pred/audio_37061.wav"
+      ]
+    },
+    {
+      name: "with syllable break",
+      paths: [
+        "eval/v2/pred/audio_47.wav",
+        "eval/v2/pred/audio_650.wav",
+        "eval/v2/pred/audio_2601.wav",
+        "eval/v2/pred/audio_37005.wav",
+        "eval/v2/pred/audio_37061.wav"
+      ]
+    },
+    {
+      name: "syllable break with xLSTM",
+      paths: [
+        "eval/v3/pred/audio_47.wav",
+        "eval/v3/pred/audio_650.wav",
+        "eval/v3/pred/audio_2601.wav",
+        "eval/v3/pred/audio_37005.wav",
+        "eval/v3/pred/audio_37061.wav"
+      ]
+    },
+    {
+      name: "syllable break with PoS & UD",
+      paths: [
+        "eval/v4/pred/audio_47.wav",
+        "eval/v4/pred/audio_650.wav",
+        "eval/v4/pred/audio_2601.wav",
+        "eval/v4/pred/audio_37005.wav",
+        "eval/v4/pred/audio_37061.wav"
+      ]
+    }
+  ];
 
-      // build rows
-      const tbody = document.querySelector("#inf tbody");
-      texts.forEach((txt, i) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `<th scope="row">${txt}</th>` +
-          models.map(m => `
-            <td>
-              <audio controls>
-                <source src="${m.paths[i]}" type="audio/wav">
-              </audio>
-            </td>
-          `).join("");
-        tbody.append(row);
-      });
-    });
-  </script>
+  // 4. Build the header row
+  const thead = document.querySelector("#inf thead");
+  const headerRow = document.createElement("tr");
+  headerRow.innerHTML = `<th>Text</th>` +
+    models.map(m => `<th>${m.name}</th>`).join("");
+  thead.append(headerRow);
+
+  // 5. Build each data row
+  const tbody = document.querySelector("#inf tbody");
+  texts.forEach((txt, i) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<th scope="row">${txt}</th>` +
+      models.map(m => `
+        <td>
+          <audio controls>
+            <source src="${baseDir}${m.paths[i]}" type="audio/wav">
+          </audio>
+        </td>
+      `).join("");
+    tbody.append(tr);
+  });
+});
+</script>
 
 </body>
 </html>
