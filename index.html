@@ -210,17 +210,17 @@
       </table>
     </div>
   </section>
-
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Compute the “base directory” of this page (so it works whether you're at
-  //    /Master-TTS-audio-site/ or /Master-TTS-audio-site/index.html)
-  const fullPath = window.location.pathname;
-  const baseDir  = fullPath.endsWith("/")
-    ? fullPath
-    : fullPath.replace(/\/[^/]*$/, "/");
+  // 1️⃣ Derive the base directory from this very script tag:
+  //    If this page is served as
+  //      https://…/Master-TTS-audio-site/index.html
+  //    then `document.currentScript.src` is that full URL,
+  //    and the new URL('.') gives the directory.
+  const baseDir = new URL('.', document.currentScript.src).pathname;
+  //    e.g. "/Master-TTS-audio-site/"
 
-  // 2. Your row texts
+  // 2️⃣ Your five texts (one per row)
   const texts = [
     "Stortinget ber også regjeringa om å utrede, hvordan datostemplinga på matvarer kan forbedres for å redusere matsvinn.",
     "det vil alltid være forbundet med risiko å velge en strategi for veien ut av en konflikt.",
@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "men så har vi sett at det har vært økende omfang innenfor noen bransjer og i noen områder av landet, og det er det vi har ønsket å <ee> adressere i den proposisjonen som vi har lagt fram."
   ];
 
-  // 3. Your model definitions (paths *relative* to the project root)
+  // 3️⃣ Your five models (columns), with paths *relative* to baseDir
   const models = [
     {
       name: "ground-truth",
@@ -283,14 +283,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   ];
 
-  // 4. Build the header row
+  // 4️⃣ Build the header row:
   const thead = document.querySelector("#inf thead");
   const headerRow = document.createElement("tr");
   headerRow.innerHTML = `<th>Text</th>` +
     models.map(m => `<th>${m.name}</th>`).join("");
   thead.append(headerRow);
 
-  // 5. Build each data row
+  // 5️⃣ Build each data row:
   const tbody = document.querySelector("#inf tbody");
   texts.forEach((txt, i) => {
     const tr = document.createElement("tr");
@@ -306,6 +306,5 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
-
 </body>
 </html>
