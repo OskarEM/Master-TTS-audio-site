@@ -270,29 +270,28 @@
       ]
     }
   ];
-
-  // 3. Build <thead>: first cell "Text", then each model name
+  // Build <thead>
   const thead = document.querySelector("#inf thead");
   const headRow = document.createElement("tr");
   headRow.innerHTML = `<th>Text</th>` +
     models.map(m => `<th>${m.name}</th>`).join("");
   thead.append(headRow);
 
-  // 4. Build <tbody>: one row per text
+  // Build <tbody>
   const tbody = document.querySelector("#inf tbody");
   texts.forEach((txt, rowIdx) => {
     const tr = document.createElement("tr");
-    // first cell: the full text
     tr.innerHTML = `<th scope="row">${txt}</th>` +
-      // then one <td> per model, pulling the path at the same index
       models.map(m => `
         <td>
-          <audio controls src="${m.paths[rowIdx]}" type="audio/wav" ></audio>
+          <audio controls>
+            <source src="${m.paths[rowIdx]}" type="audio/wav">
+          </audio>
         </td>
       `).join("");
     tbody.append(tr);
   });
-</script>
+});
 
 
 
