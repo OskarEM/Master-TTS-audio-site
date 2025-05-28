@@ -38,18 +38,17 @@
           <li><a href="#inference-syll">2.3 Inference</a></li>
         </ul>
       </li>
-       <li><a href="#xLSTM">With xLSTM and BERT encoder optimization</a>
+       <li><a href="#xLSTM">With xLSTM instead of LSTM</a>
          <ul>
-          <li><a href="#phase1-xLSTM">3.1 Training Phase 1 </a></li>
-          <li><a href="#phase1-syll">3.2 Training Phase 2</a></li>
-          <li><a href="#phase1-xlstm">3.3 Inference</a></li>
+          <li><a href="#phase1-xlstm">3.1 Training Phase 1 </a></li>
+          <li><a href="#phase2-xlstm">3.2 Training Phase 2</a></li>
+          <li><a href="#inference-xlstm">3.3 Inference</a></li>
         </ul>
       </li>
-       <li><a href="#POS">With Part-of-Speech tagging</a>
+       <li><a href="#POS">With Part-of-Speech and Dependency tagging</a>
          <ul>
-          <li><a href="#phase1-nosyll">4.1 Training Phase 1 </a></li>
-          <li><a href="#phase1-syll">4.2 Training Phase 2</a></li>
-          <li><a href="#phase1-xlstm">4.3 Inference</a></li>
+          <li><a href="#phase2-pos">4.2 Training Phase 2</a></li>
+          <li><a href="#inference-pos">4.3 Inference</a></li>
         </ul>
       </li>
       <li><a href="#inf">Inferences used during MOS Collection</a>
@@ -88,7 +87,7 @@
     <h3 id="inference-nosyll">1.3 Inference</h3>
     <p>Figure 5. Model inferenced without syllable segmentation.</p>
     <audio controls>
-      <source src="y_0_247280_14ce58ada70f17d16180.wav" type="audio/wav">
+      <source src="eval/v1/pred/47.wav" type="audio/wav">
     </audio>
   </section>
 <!-- -------------------------------------------------------------------------------- -->
@@ -115,10 +114,63 @@
     <h3 id="inference-syll">2.3 Inference</h3>
     <p>Figure 9. Model inferenced without syllable segmentation.</p>
     <audio controls>
-      <source src="y_0_247280_14ce58ada70f17d16180.wav" type="audio/wav">
+      <source src="eval/v2/pred/47.wav" type="audio/wav">
     </audio>
 
   </section>
+  <!-- -------------------------------------------------------------------------------- -->
+<section id="xLSTM">
+    <h2>With xLSTM instead of LSTM</h2>
+
+    <h3 id="phase1-xlstm">3.1 Training Phase 1</h3>
+    <p>Figure 10. Model trained with syllable segmentation and xLSTM instead of LSTM, stage 1, step 219 165, during epoch 20.</p>
+    <audio controls>
+      <source src="1syllable_reconstruct_Stage1_xLSTM.wav" type="audio/wav">
+    </audio>
+
+    <h3 id="phase2-xlstm">2.2 Training Phase 2</h3>
+    <p>Figure 11. Model trained with syllable segmentation and xLSTM instead of LSTM, stage 2, step 161 614, during epoch 20. (different bucket sizes than phase 1)</p>
+    <audio controls>
+      <source src="1syllable_reconstruct_Stage2_xLSTM.wav" type="audio/wav">
+    </audio>
+
+    <p>Figure 12. Ground Truth to audio from Figure 11., stage 2, step 161 614, during epoch 20.</p>
+     <audio controls>
+      <source src="1syllable_reconstruct_Stage2_POS_xLSTM_gt.wav" type="audio/wav">
+    </audio>
+
+    <h3 id="inference-xlstm">2.3 Inference</h3>
+    <p>Figure 13. Model inferenced without syllable segmentation and xLSTM instead of LSTM.</p>
+    <audio controls>
+      <source src="eval/v3/pred/47.wav" type="audio/wav">
+    </audio>
+
+  </section>
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+<section id="POS">
+    <h2>With Part-of-Speech and Dependency tagging</h2>
+
+    <h3 id="phase2-pos">2.2 Training Phase 2</h3>
+    <p>Figure 14. Model trained with syllable segmentation and xLSTM instead of LSTM, and with POS and DP tagging, stage 2, step 161 614, during epoch 20. (different bucket sizes than phase 1)</p>
+    <audio controls>
+      <source src="1syllable_reconstruct_Stage2_POS.wav" type="audio/wav">
+    </audio>
+
+    <p>Figure 15. Ground Truth to audio from Figure 14., stage 2, step 161 614, during epoch 20.</p>
+     <audio controls>
+      <source src="1syllable_reconstruct_Stage2_POS_xLSTM_gt.wav" type="audio/wav">
+    </audio>
+
+    <h3 id="inference-pos">2.3 Inference</h3>
+    <p>Figure 16. Model inferenced without syllable segmentation and xLSTM instead of LSTM, and with POS and DP tagging.</p>
+    <audio controls>
+      <source src="eval/v4/pred/47.wav" type="audio/wav">
+    </audio>
+
+  </section>
+
   <!-- -------------------------------------------------------------------------------- -->
 
   <!DOCTYPE html>
