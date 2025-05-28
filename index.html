@@ -310,28 +310,40 @@
 
       // 2) Out‐of‐distribution ("ood") data
       const oodTexts = [
-        "Oskar og Lars, har utviklet en ny energidrikk ved hjelp av kunstig intelligens. Drikken, kalt Data brus, er resultatet av avanserte algoritmer som analyserte tusenvis av smaksprofiler for å finne den optimale kombinasjonen av ingredienser."
+        "Oskar og Lars, har utviklet en ny energidrikk ved hjelp av kunstig intelligens. Drikken, kalt Data brus, er resultatet av avanserte algoritmer som analyserte tusenvis av smaksprofiler for å finne den optimale kombinasjonen av ingredienser.",
+        "Spania legger bak seg sine tre varmeste år noensinne, og er akkurat på vei ut av en årelang tørkeperiode. Klimaforskere viser til at menneskeskapte klimaendringer gjør at hyppigheten, varigheten og intensiteten av ekstremvær som hetebølger øker."
+
+        
       ];
       const oodModels = [
         {
           name: "ground-truth",
-          paths: ["eval/v1/gt/29021.wav"]
+          paths: ["eval/v1/gt/29021.wav",
+                  "eval/ood/ref45.wav
+                 
+                 ]
         },
         {
           name: "without syllable break",
-          paths: ["eval/ood/1.wav"]
+          paths: ["eval/ood/1.wav",
+                  "eval/ood/1_1.wav
+                 
+                 ]
         },
         {
           name: "with syllable break",
-          paths: ["eval/ood/2.wav"]
+          paths: ["eval/ood/2.wav",
+                 "eval/ood/2_1.wav]
         },
         {
           name: "syllable break with xLSTM",
-          paths: ["eval/ood/3.wav"]
+          paths: ["eval/ood/3.wav",
+                 "eval/ood/3_1.wav]
         },
         {
           name: "syllable break with PoS & UD",
-          paths: ["eval/ood/4.wav"]
+          paths: ["eval/ood/4.wav",
+                 "eval/ood/4_4.wav]
         }
       ];
       buildTable("ood", oodTexts, oodModels);
